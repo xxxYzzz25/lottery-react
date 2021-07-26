@@ -1,6 +1,6 @@
-# Todo List
+# Lottery
 
-A todo list app built with React, Redux, TypeScipt, Next
+A Lottery app built with React, Redux, TypeScipt, Next
 ## Usage
 
 Clone this `repo`:
