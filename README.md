@@ -1,18 +1,18 @@
 # Todo List
 
-A todo list app built with React, Redux, TypeScipt, LESS and Ant Design
+A todo list app built with React, Redux, TypeScipt, Next
 ## Usage
 
 Clone this `repo`:
 
 ```sh
-$ git clone https://github.com/xxxzz25/todolist.git
+$ git clone https://github.com/xxxzz25/lottery-react.git
 ```
 
 Move to the project dir:
 
 ```sh
-$ cd todolist/
+$ cd lottery-react/
 ```
 
 Runs the app in the development mode:
