@@ -6,11 +6,32 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-a {
-  color: inherit;
+* {
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+
+* a {
+  display: block;
+  text-decoration: none;
+}
+* a:hover {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+* button {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+* input {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+* input,
+textarea {
+  font-size: initial;
 }
