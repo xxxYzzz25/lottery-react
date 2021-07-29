@@ -71,31 +71,23 @@ export function lotteryReducer(state = lotteryState, action: LotteryActionTypes)
   switch (action.type) {
     case SET_WINNER_SUCCESS:
       const max = state.participaterList.length;
-      const random = Math.floor(Math.random() * max);
-      const winner = state.participaterList.find((item, index, array) => array[random]);
-      if (winner) {
-        const final = state.participaterList.filter((item) => {
-          return item.id !== winner.id;
-        });
-        const mo = function (e: any) {
-          e.preventDefault();
-        };
-        document.body.style.overflow = 'hidden';
-        document.addEventListener('touchmove', mo, false);
-        return {
-          ...state,
-          winner: winner,
-          winnerList: state.winnerList.concat(winner),
-          participaterList: final,
-          isPopup: true,
-        };
+      if (max > 0) {
+        const random = Math.floor(Math.random() * max);
+        const winner = state.participaterList.find((item, index, array) => array[random]);
+        if (winner) {
+          const final = state.participaterList.filter((item) => {
+            return item.id !== winner.id;
+          });
+          return {
+            ...state,
+            winner: winner,
+            winnerList: state.winnerList.concat(winner),
+            participaterList: final,
+            isPopup: true,
+          };
+        }
       }
     case SET_POPUP_SUCCESS:
-      const mo = function (e: any) {
-        e.preventDefault();
-      };
-      document.body.style.overflow = ''; //出现滚动条
-      document.removeEventListener('touchmove', mo, false);
       return {
         ...state,
         isPopup: false,

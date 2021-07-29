@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -48,6 +48,11 @@ const StyledWinner = styled(Winner)`
   width: 100%;
   border: 5px solid #069;
   font-weight: bold;
+  height: 50vh;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .title {
     text-align: center;
     font-size: 1.3rem;
@@ -67,11 +72,6 @@ const StyledWinner = styled(Winner)`
     padding: 2% 0%;
   }
   .peopleBox {
-    height: 28vh;
-    overflow: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
     .peopleItem {
       background: #fff;
       color: #069;
@@ -100,14 +100,7 @@ const StyledWinner = styled(Winner)`
     width: 35%;
   }
   @media (max-width: 1366px) {
-    .peopleBox {
-      height: 40vh;
-    }
-  }
-  @media (max-width: 768px) {
-    .peopleBox {
-      height: 30vh;
-    }
+    height: 50vh;
   }
 `;
 

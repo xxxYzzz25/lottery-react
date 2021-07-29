@@ -1,31 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { RootState } from '../../store';
 import { setWinner } from '../../store/lottery/actions';
+import { People } from '../../store/lottery/type';
 
 interface OwnProps {
   className: any;
 }
-interface StateProps {}
+interface StateProps {
+  participaterList: People[];
+}
 interface DispatchProps {
   setWinner: () => void;
 }
 type TProps = OwnProps & StateProps & DispatchProps;
 
-const Timer: React.FC<TProps> = ({ className, setWinner }) => {
+const Timer: React.FC<TProps> = ({ className, setWinner, participaterList }) => {
   const [totalCount, setTotalCount] = useState(1);
   const [isBtnClick, setIsBtnClick] = useState(true);
   const [min, setInputMin] = useState(0);
   const [sec, setInputSec] = useState(0);
+  const [isNotice, setIsNotice] = useState(false);
+  const [notice, setNotice] = useState('');
 
   const paddedFormat = function (num: number) {
     return num < 10 ? '0' + num : num;
   };
 
   const confirmTimer = function () {
-    if (totalCount > 0) {
+    if (totalCount > 0 && totalCount <= 100) {
+      setIsNotice(false);
       setIsBtnClick(false);
       let remaining = totalCount * 60 - 1;
       let countInterval = setInterval(function () {
@@ -39,8 +45,18 @@ const Timer: React.FC<TProps> = ({ className, setWinner }) => {
           setWinner();
         }
       }, 1000);
+    } else if (totalCount > 100) {
+      setIsNotice(true);
+      setNotice('不能輸入大於 100 的數字');
+    } else {
+      setIsNotice(true);
+      setNotice('不能輸入小於 1 的數字');
     }
   };
+
+  useEffect(() => {
+    participaterList.length <= 0 ? setIsBtnClick(false) : setIsBtnClick(true);
+  }, [participaterList]);
 
   return (
     <div className={className}>
@@ -62,7 +78,12 @@ const Timer: React.FC<TProps> = ({ className, setWinner }) => {
           設定
         </div>
       </div>
-      <div className='showCount'>{paddedFormat(min) + ' : ' + paddedFormat(sec)}</div>
+      {isNotice ? <div className='notice'>{notice}</div> : null}
+      {participaterList.length <= 0 ? (
+        <div className='showFeedback'>已沒有參與者了喔！</div>
+      ) : (
+        <div className='showCount'>{paddedFormat(min) + ' : ' + paddedFormat(sec)}</div>
+      )}
     </div>
   );
 };
@@ -70,6 +91,7 @@ const Timer: React.FC<TProps> = ({ className, setWinner }) => {
 const StyledTimer = styled(Timer)`
   width: 100%;
   font-weight: bold;
+  position: relative;
   .title {
     text-align: center;
     font-size: 1.3rem;
@@ -117,6 +139,18 @@ const StyledTimer = styled(Timer)`
       display: none;
     }
   }
+  .notice {
+    color: #f00;
+    position: absolute;
+    top: 56%;
+    left: 3%;
+  }
+  .showFeedback {
+    font-size: 2rem;
+    color: #f00;
+    margin: 8% 0%;
+    text-align: center;
+  }
   .showCount {
     font-size: 3.5rem;
     color: #069;
@@ -129,7 +163,9 @@ const StyledTimer = styled(Timer)`
 `;
 
 function mapStateToProps(state: RootState): StateProps {
-  return {};
+  return {
+    participaterList: state.lottery.participaterList,
+  };
 }
 
 function mapDispatchToProps(dispatch: Dispatch): DispatchProps {

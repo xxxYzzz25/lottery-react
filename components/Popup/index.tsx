@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -19,9 +19,9 @@ type TProps = OwnProps & StateProps & DispatchProps;
 
 const Popup: React.FC<TProps> = ({ className, winner, setPopup }) => {
   const handleClose = () => {
-    console.log(1);
     setPopup();
   };
+
   return (
     <div className={className} onClick={handleClose}>
       <div className='popupBox'>
@@ -45,6 +45,7 @@ const StyledPopup = styled(Popup)`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 10;
   width: 100%;
   height: 100vh;
   background: rgba(0, 0, 0, 0.8);
@@ -59,7 +60,7 @@ const StyledPopup = styled(Popup)`
     border-radius: 20px 20px 0 0;
     .title {
       text-align: center;
-    font-size: 1.3rem;
+      font-size: 1.3rem;
       border-bottom: 5px solid #069;
       background: #069;
       color: #fff;

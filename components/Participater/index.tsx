@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -14,6 +14,7 @@ interface StateProps {
 interface DispatchProps {}
 type TProps = OwnProps & StateProps & DispatchProps;
 
+// overflow
 const Participater: React.FC<TProps> = ({ className, participaterList }) => {
   return (
     <div className={className}>
@@ -45,6 +46,11 @@ const StyledParticipater = styled(Participater)`
   width: 45%;
   border: 5px solid #069;
   font-weight: bold;
+  height: 92vh;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .title {
     text-align: center;
     font-size: 1.3rem;
@@ -64,11 +70,6 @@ const StyledParticipater = styled(Participater)`
     padding: 2% 0%;
   }
   .peopleBox {
-    height: 70vh;
-    overflow: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
     .peopleItem {
       background: #fff;
       color: #069;
@@ -97,14 +98,7 @@ const StyledParticipater = styled(Participater)`
     width: 35%;
   }
   @media (max-width: 1024px) {
-    .peopleBox {
-      height: 73vh;
-    }
-  }
-  @media (max-width: 768px) {
-    .peopleBox {
-      height: 52vh;
-    }
+    height: 68vh;
   }
   @media (max-width: 414px) {
     width: 100%;

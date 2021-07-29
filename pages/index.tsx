@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ParticipaterList from '../components/Participater';
 import Timer from '../components/Timer';
@@ -8,7 +8,6 @@ import Popup from '../components/Popup';
 
 import { connect } from 'react-redux';
 import { RootState } from '../store';
-import { People } from '../store/lottery/type';
 
 interface OwnProps {
   className: any;
@@ -19,6 +18,22 @@ interface StateProps {
 type TProps = OwnProps & StateProps;
 
 const Home: React.FC<TProps> = ({ className, isPopup }) => {
+  useEffect(() => {
+    if (isPopup) {
+      const mo = function (e: any) {
+        e.preventDefault();
+      };
+      document.body.style.overflow = 'hidden';
+      document.addEventListener('touchmove', mo, false);
+    } else {
+      const mo = function (e: any) {
+        e.preventDefault();
+      };
+      document.body.style.overflow = '';
+      document.removeEventListener('touchmove', mo, false);
+    }
+  }, [isPopup]);
+  
   return (
     <div className={className}>
       <Head>
